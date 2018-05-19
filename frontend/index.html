@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="obtener('dolar')">Dolar</button>
+    <button onclick="obtener('euro')">Euro</button>
+
+    <ul id="resultados">
+    </ul>
+
+    <script>
+
+        function obtener(moneda){
+            fetch('http://localhost/api_php/backend/' + moneda)
+            .then(datos => datos.json())
+            .then(datos => {
+                var resultado = document.getElementById('resultados');
+                resultado.innerHTML = '';
+                for(let dato of datos){
+                    resultado.innerHTML += `
+                        <li>Fecha: ${dato.fecha} - Valor: ${dato.valor} </li>
+                    `;
+                }
+            })
+        }
+    </script>
+</body>
+</html>
